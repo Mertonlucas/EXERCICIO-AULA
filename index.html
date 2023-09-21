@@ -1,110 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Calculadora</title>
-    <style>
-        body {
-            text-align: center;
-            background-color: #FFD700; /* Amarelo queimado */
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
 
-        table {
-            margin: 0 auto;
-        }
-
-        td {
-            text-align: right;
-        }
-
-        #resultado {
-            text-align: center;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .descricao {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-
-        /* Adiciona um contorno preto nas caixas de entrada */
-        input[type="text"] {
-            border: 1px solid black;
-        }
-    </style>
     <script>
         function calcular() {
-            var valor1 = parseFloat(document.getElementById('valor1').value);
-            var valor2 = parseFloat(document.getElementById('valor2').value);
-            var resultado = 0;
+            var num1, num2, res;
+            num1 = document.getElementById("valor1").value;
+            num2 = document.getElementById("valor2").value;
 
-            var operadores = document.getElementsByName('operadores');
-
-            for (var i = 0; i < operadores.length; i++) {
-                if (operadores[i].checked) {
-                    if (operadores[i].value === 'somar') {
-                        resultado = valor1 + valor2;
-                    } else if (operadores[i].value === 'multiplicar') {
-                        resultado = valor1 * valor2;
-                    }
-                    break;
-                }
+            if (document.getElementById("somar").checked == true) {
+                res = parseInt(num1) + parseInt(num2);
+                alert("O resultado é: " + res);
+            } else {
+                res = parseInt(num1) * parseInt(num2);
+                alert("O resultado é: " + res);
             }
-
-            document.getElementById('resultado').innerHTML = 'Resultado: ' + resultado;
         }
 
-        function limparCampos() {
-            document.getElementById('valor1').value = "";
-            document.getElementById('valor2').value = "";
-            document.getElementById('resultado').innerHTML = "Resultado: ";
-            
-            // Desmarque os botões de rádio
-            var operadores = document.getElementsByName('operadores');
-            for (var i = 0; i < operadores.length; i++) {
-                operadores[i].checked = false;
-            }
+        function resetar() {
+            document.getElementById("valor1").value = "";
+            document.getElementById("valor2").value = "";
+            document.getElementById("valor1").focus();
         }
     </script>
 </head>
+
 <body>
-    <h1>Calculadora em JavaScript</h1>
-
-    <div class="descricao">
-        <p>Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
-        <p>Ela permite que você faça cálculos simples de adição e multiplicação com dois valores.</p>
-    </div>
-
-    <table>
-        <tr>
-            <th colspan="3">Calculadora</th>
-        </tr>
-        <tr>
-            <td>Valor 1:</td>
-            <td><input type="text" id="valor1"></td>
-        </tr>
-        <tr>
-            <td>Valor 2:</td>
-            <td><input type="text" id="valor2"></td>
-        </tr>
-        <tr>
-            <td>Cálculo:</td>
-            <td>
-                <input type="radio" name="operadores" value="somar">Somar
-                <input type="radio" name="operadores" value="multiplicar">Multiplicar
-            </td>
-            <td><button onclick="calcular()">Calcular</button></td>
-        </tr>
-        <tr>
-            <td colspan="3"><button onclick="limparCampos()">Limpar</button></td>
-        </tr>
-        <tr>
-            <td colspan="3" id="resultado">Resultado:</td>
-        </tr>
-    </table>
+    <h1 align="center">Calculadora em JavaScript</h1>
+    <p align="center">Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
+    <p align="center">Ela permite que você faça cálculos simples de adição e multiplicação com dois valores.</p>
+    <center>
+        <table bgcolor="gold">
+            <tr>
+                <th>Calculadora</th>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Valor 1:</td>
+                <td><input type="text" id="valor1"></td>
+            </tr>
+            <tr>
+                <td>Valor 2:</td>
+                <td><input type="text" id="valor2"></td>
+            </tr>
+            <tr>
+                <td>Cálculos:</td>
+                <td><input type="radio" name="bolinha" id="somar"> Somar
+                    <input type="radio" name="bolinha" id="multiplicar"> Multiplicar
+                </td>
+            </tr>
+            <tr>
+                <td><button id="limpar" onclick="resetar()">Limpar</button></td>
+                <td><button id="resultado" onclick="calcular()">Resultado</button></td>
+            </tr>
+        </table>
+    </center>
 </body>
+
 </html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Título da página -->
+    <title>Calculadora</title>
+    <style> 
+        /* Estilos para o corpo (body) da página */
+        body {
+            text-align: center; /* Alinha o texto ao centro */
+            background-color: #FFD700; /* Define a cor de fundo como amarelo queimado */
+            margin: 0; /* Remove margens externas */
+            padding: 0; /* Remove espaçamento interno */
+            font-family: Arial, sans-serif; /* Define a fonte do texto */
+        }
+
+        /* Define estilos para tabelas */
+        table {
+            margin: 0 auto; /* Centraliza a tabela horizontalmente */
+        }
+
+        /* Define estilos para células de tabela (td) */
+        td {
+            text-align: right; /* Alinha o texto à direita nas células */
+            padding: 5px; /* Adiciona um espaçamento interno de 5 pixels nas células */
+        }
+
+        /* Estilos para o resultado da calculadora */
+        #resultado {
+            text-align: center; /* Alinha o texto ao centro */
+            font-size: 18px; /* Define o tamanho da fonte como 18 pixels */
+            font-weight: bold; /* Define o texto em negrito */
+        }
+
+        /* Define estilos para a descrição */
+        .descricao {
+            text-align: center; /* Alinha o texto ao centro */
+            margin-top: 20px; /* Adiciona uma margem superior de 20 pixels */
+            font-size: 18px; /* Define o tamanho da fonte como 18 pixels */
+        }
+
+        /* Adiciona um contorno preto nas caixas de entrada de texto */
+        input[type="text"] {
+            border: 1px solid black; /* Define uma borda preta com 1 pixel de espessura */
+            padding: 5px; /* Adiciona um espaçamento interno de 5 pixels */
+        }
+    </style>
+    <script>
+        // Função para calcular a operação selecionada
+        function calcular() {
+            // Obtém os valores dos campos de entrada
+            var valor1 = parseFloat(document.getElementById('valor1').value);
+            var valor2 = parseFloat(document.getElementById('valor2').value);
+            var resultado = 0;
+
+            // Obtém a opção de operação selecionada (Somar ou Multiplicar)
+            var operadores = document.getElementsByName('operadores');
+
+            for (var i = 0; i < operadores.length; i++) {
+                if (operadores[i].checked) {
+                    if (operadores[i].value === 'somar') {
+                        resultado = valor1 + valor2; // Realiza a soma
+                    } else if (operadores[i].value === 'multiplicar') {
+                        resultado = valor1 * valor2; // Realiza a multiplicação
+                    }
+                    break;
+                }
+            }
+
+            // Exibe o resultado no elemento com o ID "resultado"
+            document.getElementById('resultado').innerHTML = 'Resultado: ' + resultado;
+        }
+
+        // Função para limpar os campos
+        function limpar() {
+            // Limpa os campos de entrada e o resultado
+            document.getElementById('valor1').value = '';
+            document.getElementById('valor2').value = '';
+            document.getElementById('resultado').innerHTML = 'Resultado: ';
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Título principal -->
+    <h1>Calculadora em JavaScript</h1>
+
+    <!-- Descrição da calculadora -->
+    <div class="descricao">
+        <p>Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
+        <p>Ela permite que você faça cálculos simples de adição e multiplicação com dois valores.</p>
+    </div>
+
+    <!-- Tabela que contém os elementos da calculadora -->
+    <table>
+        <tr>
+            <th colspan="3">Calculadora</th> <!-- Cabeçalho da tabela -->
+        </tr>
+        <tr>
+            <td>Valor 1:</td>
+            <td><input type="text" id="valor1"></td> <!-- Campo de entrada para o Valor 1 -->
+        </tr>
+        <tr>
+            <td>Valor 2:</td>
+            <td><input type="text" id="valor2"></td> <!-- Campo de entrada para o Valor 2 -->
+        </tr>
+        <tr>
+            <td>Cálculo:</td>
+            <td>
+                <input type="radio" name="operadores" value="somar">Somar <!-- Opção para somar -->
+                <input type="radio" name="operadores" value="multiplicar">Multiplicar <!-- Opção para multiplicar -->
+            </td>
+            <td>
+                <button onclick="calcular()">Calcular</button> <!-- Botão para calcular -->
+                <button onclick="limpar()">Limpar</button> <!-- Botão para limpar os campos -->
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" id="resultado"></td> <!-- Exibição do resultado -->
+        </tr>
+    </table>
+</body>
+</html>
