@@ -1,86 +1,140 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
-
-    <!-- Início do script JavaScript -->
-    <script>
-        // Função para calcular o resultado com base nos valores e na operação selecionada
-        function calcular() {
-            var num1, num2, res;
-            // Obtém os valores dos campos de entrada
-            num1 = document.getElementById("valor1").value;
-            num2 = document.getElementById("valor2").value;
-
-            // Verifica se a operação de soma está selecionada
-            if (document.getElementById("somar").checked == true) {
-                // Realiza a adição dos números e exibe um alerta com o resultado
-                res = parseInt(num1) + parseInt(num2);
-                alert("O resultado é: " + res);
-            } else {
-                // Caso contrário, realiza a multiplicação dos números e exibe um alerta com o resultado
-                res = parseInt(num1) * parseInt(num2);
-                alert("O resultado é: " + res);
-            }
+    <style>
+        /* Estilos para o corpo da página */
+        body {
+            font-family: Arial, sans-serif; /* Define a fonte usada no corpo da página */
+            background-color: #FFD700; /* Define a cor de fundo */
+            margin: 0; /* Remove margens externas */
+            padding: 0; /* Remove espaçamento interno */
+            display: flex; /* Usa o modelo flexbox para alinhar o conteúdo verticalmente */
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            align-items: center; /* Centraliza o conteúdo verticalmente */
+            min-height: 100vh; /* Garante que o conteúdo ocupe pelo menos toda a altura da tela */
         }
 
-        // Função para limpar os campos de entrada e focar no primeiro campo
+        /* Estilos para o contêiner da calculadora */
+        .calculator {
+            max-width: 400px; /* Define a largura máxima do elemento com classe "calculator" */
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0); /* Aplica um gradiente de fundo */
+            border-radius: 5px; /* Arredonda as bordas do elemento */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adiciona uma sombra */
+        }
+
+        /* Estilos para o título da calculadora */
+        h1 {
+            text-align: center; /* Centraliza o texto horizontalmente */
+        }
+
+        /* Estilos para os grupos de entrada de dados */
+        .input-group {
+            display: flex;
+            flex-direction: column; /* Organiza os elementos verticalmente */
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para as etiquetas (labels) */
+        label {
+            margin-bottom: 5px; /* Adiciona espaço abaixo das etiquetas */
+        }
+
+        /* Estilos para campos de entrada de texto e radio buttons */
+        input[type="text"],
+        input[type="radio"] {
+            padding: 10px; /* Adiciona preenchimento interno aos campos de entrada */
+            border: 1px solid #ccc; /* Adiciona uma borda com cor cinza claro */
+            border-radius: 3px; /* Arredonda as bordas dos campos */
+        }
+
+        /* Estilos para o grupo de radio buttons */
+        .radio-group {
+            display: flex;
+            align-items: center; /* Alinha os elementos verticalmente */
+        }
+
+        /* Estilos para as etiquetas dos radio buttons */
+        .radio-group label {
+            margin-right: 10px; /* Adiciona espaço à direita das etiquetas */
+        }
+
+        /* Estilos para os botões */
+        button {
+            padding: 10px; /*adiciona preenchimento interno aos botões*/
+            background-color: #007BFF; /*define a cor de fundo dos botões */
+            color: #fff; /*cor do texto dos botões */
+            border: none; /*Remove as bordas dos botões */
+            border-radius: 3px; /*Arredonda as bordas dos botões*/
+            cursor: pointer; /*Muda o cursor do mouse para uma mão quando passa sobre os botões*/
+        }
+
+        /* Estilos para os botões quando o mouse passa sobre eles */
+        button:hover {
+            background-color: #0056b3; /* Altera a cor de fundo dos botões quando o mouse passa sobre eles */
+        }
+
+        /* Estilos para o resultado */
+        #resultado {
+            text-align: center; /* Centraliza o texto horizontalmente */
+            font-size: 24px; /* Define o tamanho da fonte */
+            margin-top: 20px; /* Adiciona espaço acima do resultado */
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculadora em JavaScript</h1>
+        <p style="text-align: center;">Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
+        <div class="input-group">
+            <label for="valor1">Valor 1:</label>
+            <input type="text" id="valor1" placeholder="Digite o primeiro valor">
+        </div>
+        <div class="input-group">
+            <label for="valor2">Valor 2:</label>
+            <input type="text" id="valor2" placeholder="Digite o segundo valor">
+        </div>
+        <div class="input-group">
+            <label>Cálculos:</label>
+            <div class="radio-group">
+                <input type="radio" name="operacao" id="somar" value="somar" checked>
+                <label for="somar">Somar</label>
+                <input type="radio" name="operacao" id="multiplicar" value="multiplicar">
+                <label for="multiplicar">Multiplicar</label>
+            </div>
+        </div>
+        <button onclick="calcular()">Calcular</button>
+        <button onclick="resetar()">Limpar</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcular() {
+            // Obtém os valores dos campos de entrada e converte para números com ponto decimal
+            var num1 = parseFloat(document.getElementById("valor1").value.replace(",", "."));
+            var num2 = parseFloat(document.getElementById("valor2").value.replace(",", "."));
+            var resultado = 0;
+
+            if (document.getElementById("somar").checked) {
+                resultado = num1 + num2;
+            } else {
+                resultado = num1 * num2;
+            }
+
+            // Exibe o resultado na página, formatado com vírgula
+            document.getElementById("resultado").innerHTML = "Resultado: " + resultado.toFixed(2).replace(".", ",");
+        }
+
         function resetar() {
+            // Limpa os campos de entrada e o resultado
             document.getElementById("valor1").value = "";
             document.getElementById("valor2").value = "";
-            document.getElementById("valor1").focus();
+            document.getElementById("resultado").innerHTML = "";
         }
     </script>
-    <!-- Fim do script JavaScript -->
-</head>
-
-<body>
-    <!-- Título centralizado da calculadora -->
-    <h1 align="center">Calculadora em JavaScript</h1>
-    
-    <!-- Descrição centralizada da calculadora -->
-    <p align="center">Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
-    <p align="center">Ela permite que você faça cálculos simples de adição e multiplicação com dois valores.</p>
-    
-    <center>
-        <!-- Tabela centralizada com o formulário da calculadora -->
-        <table bgcolor="gold">
-            <tr>
-                <!-- Cabeçalho da tabela -->
-                <th>Calculadora</th>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Valor 1:</td>
-                <!-- Campo de entrada para o primeiro valor -->
-                <td><input type="text" id="valor1"></td>
-            </tr>
-            <tr>
-                <td>Valor 2:</td>
-                <!-- Campo de entrada para o segundo valor -->
-                <td><input type="text" id="valor2"></td>
-            </tr>
-            <tr>
-                <td>Cálculos:</td>
-                <td>
-                    <!-- Botões de rádio para seleção da operação -->
-                    <input type="radio" name="bolinha" id="somar"> Somar
-                    <input type="radio" name="bolinha" id="multiplicar"> Multiplicar
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <!-- Botão "Limpar" que chama a função resetar() -->
-                    <button id="limpar" onclick="resetar()">Limpar</button>
-                </td>
-                <td>
-                    <!-- Botão "Resultado" que chama a função calcular() -->
-                    <button id="resultado" onclick="calcular()">Resultado</button>
-                </td>
-            </tr>
-        </table>
-    </center>
 </body>
-
 </html>

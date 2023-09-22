@@ -20,9 +20,9 @@
             max-width: 400px;
             width: 100%;
             padding: 20px;
-            background-color: #f5f5f5; 
+            background: linear-gradient(to bottom, #f5f5f5, #e0e0e0);
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         h1 {
@@ -78,7 +78,7 @@
 <body>
     <div class="calculator">
         <h1>Calculadora em JavaScript</h1>
-        <p>Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
+        <p style="text-align: center;">Calculadora desenvolvida como projeto de aula da disciplina Desenvolvimento de Sistemas Web.</p>
         <div class="input-group">
             <label for="valor1">Valor 1:</label>
             <input type="text" id="valor1" placeholder="Digite o primeiro valor">
@@ -103,8 +103,8 @@
 
     <script>
         function calcular() {
-            var num1 = parseFloat(document.getElementById("valor1").value);
-            var num2 = parseFloat(document.getElementById("valor2").value);
+            var num1 = parseFloat(document.getElementById("valor1").value.replace(",", "."));
+            var num2 = parseFloat(document.getElementById("valor2").value.replace(",", "."));
             var resultado = 0;
 
             if (document.getElementById("somar").checked) {
@@ -113,7 +113,7 @@
                 resultado = num1 * num2;
             }
 
-            document.getElementById("resultado").innerHTML = "Resultado: " + resultado;
+            document.getElementById("resultado").innerHTML = "Resultado: " + resultado.toFixed(2).replace(".", ",");
         }
 
         function resetar() {
